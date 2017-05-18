@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<files>
+<file filename="MyFile.csv">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:php="http://php.net/xsl">
+<xsl:output method="text"/>
+
+<xsl:variable name="sepstart" select="'&#34;'"/> <!-- &#34; field start seperator, including '' -->
+<xsl:variable name="sepend" select="'&#34;,'"/> <!-- field end seperator, including '' -->
+
+<xsl:template match="/">
+<xsl:text>"Ordernumber","Orderdate","ItemSKU","QtyInvoiced","ItemPrice","CustomerGroupId","ShippingMethod","ShippingCost","PaymentMethod","CustomerFirstName","Prefix","OrderStatus","PurchasedWebsite","Subtotal","GrandTotal","TotalTax","TotalPaid","TotalRefunded","ItemName","ItemISBN","ItemStock","CostPrice","ItemOrdered","ItemInvoiced","ItemSent","BillingFirstName"</xsl:text><xsl:text>&#xD;&#xA;</xsl:text>
+<xsl:for-each select="orders/order">
+<xsl:for-each select="items/item">
+
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../increment_id)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="php:functionString('strftime', '%Y-%m-%d', ../../created_at_timestamp)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(sku)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(qty_invoiced)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(price)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../customer_group_id)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../shipping_method)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../payment/shipping_amount)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../payment/method)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../customer_firstname)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../customer_prefix)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../status)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../store_name)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../subtotal)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../grand_total)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../tax_amount)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../total_paid)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(../../total_refunded)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(name)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(attributes/isbn)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(attributes/itemstock)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(cost)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(qty_ordered)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(qty_invoiced)"/><xsl:value-of select="$sepend" />
+<xsl:value-of select="$sepstart" /><xsl:value-of select="normalize-space(qty_shipped)"/><xsl:value-of select="$sepend" />
+
+<xsl:text>&#xD;&#xA;</xsl:text>
+</xsl:for-each>
+</xsl:for-each>
+</xsl:template>
+
+</xsl:stylesheet>
+</file>
+</files>
